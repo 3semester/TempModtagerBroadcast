@@ -14,10 +14,10 @@ namespace TempModtagerBroadcast
     {
 
         [OperationContract]
-        string GetData(int value);
+        int PostTempToDB(string temp);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        IList<Temp> GetAllTemp();
 
         // TODO: Add your service operations here
     }
