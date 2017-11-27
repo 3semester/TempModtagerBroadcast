@@ -97,7 +97,7 @@
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="ITempService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Temp.cs" />
   </ItemGroup>
