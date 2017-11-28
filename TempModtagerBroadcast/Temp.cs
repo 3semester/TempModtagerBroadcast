@@ -10,7 +10,7 @@ namespace TempModtagerBroadcast
     public class Temp
     {
         [DataMember]
-        public string Temps;
+        public float Temps;
 
         [DataMember]
         public int Id;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -17,7 +18,32 @@ namespace TempModtagerBroadcast
 
         public IList<Temp> GetAllTemp()
         {
-            throw new NotImplementedException();
+            const string selectAllTemp = "SELECT * FROM Temperaturmaaling";
+
+            using(SqlConnection databaseConnection = new SqlConnection(ConnString))
+            {
+                databaseConnection.Open();
+                using(SqlCommand selectedCommand = new SqlCommand(selectAllTemp, databaseConnection))
+                {
+                    using(SqlDataReader dReader = selectedCommand.ExecuteReader())
+                    {
+                        List<Temp> tempList = new List<Temp>();
+                        while(dReader.Read())
+                        {
+                            int id = dReader.GetInt32(0);
+                            float temp = dReader.GetFloat(1);
+
+                            Temp t1 = new Temp()
+                            {
+                                Id = id,
+                                Temps = temp
+                            };
+                            tempList.Add(t1);
+                        }
+                        return tempList;
+                    }
+                }
+            }
         }
 
         public int PostTempToDB(string temp)
