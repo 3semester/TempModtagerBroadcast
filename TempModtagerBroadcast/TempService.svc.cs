@@ -31,12 +31,14 @@ namespace TempModtagerBroadcast
                         while(dReader.Read())
                         {
                             int id = dReader.GetInt32(0);
-                            float temp = dReader.GetFloat(1);
+                            string temp = dReader.GetString(1);
+                            DateTime date = dReader.GetDateTime(2);
 
                             Temp t1 = new Temp()
                             {
                                 Id = id,
-                                Temps = temp
+                                Temps = temp,
+                                Date = date
                             };
                             tempList.Add(t1);
                         }
@@ -48,7 +50,18 @@ namespace TempModtagerBroadcast
 
         public int PostTempToDB(string temp)
         {
-            throw new NotImplementedException();
+            const string postTemps = "INSERT INTO Temperaturmaaling (Temps) values (@temp)";
+            using (SqlConnection databaseConn = new SqlConnection(ConnString))
+            {
+                databaseConn.Open();
+                using (SqlCommand insertCommand = new SqlCommand(postTemps, databaseConn))
+                {
+                    insertCommand.Parameters.AddWithValue("@temp", temp);
+
+                    int rowsAffected = insertCommand.ExecuteNonQuery();
+                    return rowsAffected;
+                }
+            }
         }
     }
 }
