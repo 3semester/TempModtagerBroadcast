@@ -19,6 +19,12 @@ namespace TempModtagerBroadcast
         [OperationContract]
         IList<Temp> GetAllTemp();
 
+        [OperationContract]
+        bool TjekStatus();
+
+        [OperationContract]
+        void UpdateDb();
+
         // TODO: Add your service operations here
     }
 
